@@ -13,6 +13,8 @@
         "express-session": "1.7.2",
         "jade": "1.9.1",
         "mongodb": "1.4.15",
+        "consolidate": "*",
+        "ejs": "*",
         "morgan": "1.2.2",
         "multer": "0.1.3"
     }

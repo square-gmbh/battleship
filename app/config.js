@@ -14,7 +14,7 @@ config.mongodb = {
 config.routes = {
     home: {
         reg: "^/*$",
-        path: "routes/views/home.jade",
+        path: "routes/views/home.html",
         access: {
             roles: ["user"],
             fail: "redirect",

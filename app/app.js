@@ -3,6 +3,7 @@ var path = require('path');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+var engines = require('consolidate');
 var errorHandler = require('errorhandler');
 var config = require(__dirname + "/config");
 
@@ -15,7 +16,8 @@ var log = bole("server");
 
 // all environments
 app.set('views', __dirname);
-app.set('view engine', 'jade');
+app.engine('jade', engines.jade);
+app.engine('html', engines.ejs);
 app.use(session({ resave: true,
                   saveUninitialized: true,
                   secret: 'uwotm8' }));

@@ -9,6 +9,15 @@ var operations_cache = {};
 
 function handleOperation(req, res, config, operation) {
 
+    // check if user has permission to run this operation
+    if (config.access && config.access.roles) {
+        var userRole = req.session.role || "visitator";
+        if (config.access.roles.indexOf(userRole) === -1) {
+            // TODO use some kind of error template
+            return res.status(403).send("access denied");
+        }
+    }
+
     // cache operation file it isn't already
     if (!operations_cache[operation]) {
         try {

@@ -14,7 +14,21 @@ config.mongodb = {
 config.routes = {
     home: {
         reg: "^/*$",
-        path: "routes/views/home.jade"
+        path: "routes/views/home.jade",
+        access: {
+            roles: ["user"],
+            fail: "redirect",
+            redirect: "/login"
+        }
+    },
+    login: {
+        reg: "/login",
+        path: "routes/views/login.jade",
+        access: {
+            roles: ["visitator"],
+            fail: "redirect",
+            redirect: "/"
+        }
     }
 }
 
@@ -24,7 +38,18 @@ config.operations = {
         getExample: {
             url: "/getExample",
             method: "get",
-            path: "exampleController/controller.js"
+            path: "exampleController/controller.js",
+            access: {
+                roles: ["user"]
+            }
+        },
+        login: {
+            url: "/login",
+            method: "post",
+            path: "login/loginController.js",
+            access: {
+                roles: ["visitator"]
+            }
         }
     }
 }

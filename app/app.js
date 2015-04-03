@@ -23,10 +23,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
-/* Views, Controllers, Models */
+// handle application routes
 app.use(require(__dirname + "/routes/router"));
 
-// TODO maybe config this shit
+// handle application operations (apis)
+app.use(require(__dirname + "/operations"));
 
 // handle 404
 app.use(require(__dirname + "/errors/notFound"));

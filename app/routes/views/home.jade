@@ -1,6 +1,43 @@
-doctype html
 html
     head
-        title Home
+        // Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/
+        link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css', rel='stylesheet')
+
+        // Custom CSS
+        link(href='/css/style.css', rel='stylesheet')
+
+        // Custom Fonts
+        link(href='http://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+        link(href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic', rel='stylesheet', type='text/css')
+
+        // Scripts
+        script(src="/js/jquery-1.8.3.min.js")
+        script(src="/js/ui/jquery.ui.core.js")
+        script(src="/js/ui/jquery.ui.widget.js")
+        script(src="/js/ui/jquery.ui.mouse.js")
+        script(src="/js/ui/jquery.ui.draggable.js")
+        script(src="/js/jquery-collision.min.js")
+        script(src="/js/jquery-ui-draggable-collision.min.js")
+        script(src='/js/client.js')
     body
-        h1 This is a jade file
+        .container
+            img.logo(src="/res/logo.png")
+            .gameContainer
+                #board.gameBoard.playerOneGameBoard.pull-left
+                    .ship.ship2(vertical)
+                    .ship.ship1(vertical)
+                    .ship.ship4(vertical)
+                    .ship.ship3(vertical)
+                    .ship.ship5(vertical)
+                .gameBoard.playerTwoGameBoard.pull-left
+                    .inviteFriendDialogOverlay
+                        .inviteFriendDialog
+                            h4 Give this URL to a friend to play against each other
+                            input.friendURL.form-control(type="text", onclick="this.select()")
+                            h5.text-center or
+                            .col-xs-12.btn.btn-default Play with a Stranger
+                            .clearfix
+                .clearfix
+                .infoContainer
+                    .btn.btn-success Ready!
+

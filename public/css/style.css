@@ -1,0 +1,206 @@
+body {
+	background-color: #222222;
+	background-image: url(http://images7.alphacoders.com/320/320065.jpg);
+	background-size: cover;
+	background-position: center;
+}
+
+.logo {
+	height: 80px;
+	margin: 50px auto 0 auto;
+	display: block;
+}
+
+.gameContainer {
+	display: table;
+	margin: 25px auto;
+	width: 825px
+}
+
+.gameContainer .gameBoard {
+	background-image: url(/res/board_bg.jpg);
+	width: 400px;
+	height: 400px;
+	position: relative;
+}
+
+.gameContainer .gameBoard:before {
+	content: '';
+	position: absolute;
+	top: -10px; left: -10px; bottom: -10px; right: -10px;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	z-index: -1;
+}
+
+.playerOneGameBoard {
+	margin-right: 25px;
+	border-collapse: collapse;
+}
+
+.gameContainer .gameBoard .tile {
+	width: 40px;
+	height: 40px;
+	float: left;
+	position: relative;
+	background-size: cover;
+}
+
+.gameContainer .gameBoard .tile:after {
+	position: absolute;
+	content: '';
+	top: 15px;
+	left: 15px;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.6);
+	width: 10px;
+	height: 10px;
+	box-shadow: 4px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.gameContainer .gameBoard .tile:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.infoContainer {
+	position: absolute;
+	left: 0; right: 0; top: 15px;
+	padding: 10px;
+	background-color: #666;
+	border-radius: 5px;
+	position: relative;
+}
+
+.infoContainer:before {
+	content: '';
+	position: absolute;
+	top: -10px; left: -10px; bottom: -10px; right: -10px;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	z-index: -1;
+}
+
+/* Ship designs */
+
+.ship {
+	cursor: move;
+	position: absolute;
+	z-index: 10000;
+	margin: 0;
+	background-color: #cccccc;
+}
+
+.ship[horizontal] {
+	height: 40px;
+}
+
+.ship[vertical] {
+	width: 40px;
+}
+
+.ship[horizontal].ship1 {
+	width: 80px;
+}
+
+.ship[horizontal].ship2 {
+	width: 120px;
+}
+
+.ship[horizontal].ship3 {
+	width: 160px;
+}
+
+.ship[horizontal].ship4 {
+	width: 200px;
+}
+
+.ship[horizontal].ship5 {
+	width: 120px;
+}
+
+/*
+.ship[horizontal].ship1 {
+	width: 80px;
+	background-image: url(/res/ship1.png);
+	background-position: center;
+	background-size: contain;
+}
+
+.ship[horizontal].ship2 {
+	width: 120px;
+	background-image: url(/res/ship2.png);
+	background-position: center;
+	background-size: contain;
+}
+
+.ship[horizontal].ship3 {
+	width: 160px;
+	background-image: url(/res/ship3.png);
+	background-position: center;
+	background-size: contain;
+}
+
+.ship[horizontal].ship4 {
+	width: 200px;
+	background-image: url(/res/ship4.png);
+	background-position: center;
+	background-size: contain;
+}
+
+.ship[horizontal].ship5 {
+	width: 120px;
+	background-image: url(/res/ship2.png);
+	background-position: center;
+	background-size: contain;
+}
+
+*/
+
+
+.ship[vertical].ship1 {
+	height: 80px;
+}
+
+.ship[vertical].ship2 {
+	height: 120px;
+}
+
+.ship[vertical].ship3 {
+	height: 40px;
+	width: 120px;
+}
+
+.ship[vertical].ship4 {
+	height: 200px;
+}
+
+.ship[vertical].ship5 {
+	height: 120px;
+}
+
+.inviteFriendDialogOverlay {
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	z-index: 100000;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.inviteFriendDialog {
+	width: 80%;
+	margin: 100px auto;
+	background-color: #ffffff;
+	padding: 20px;
+}
+
+.explosion {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	z-index: 2000000;
+	background-image: url(/res/explosion.png);
+	background-position: center;
+	background-size: contain;
+	top: 240px;
+	left: 120px;
+}
+

@@ -7,16 +7,21 @@ var router = new express.Router();
 // config static files
 router.use(express.static(join(__dirname, "../../public")));
 
+// handler cache
+var handler_cache = {};
+
 // view render function
-function renderView (req, res, view) {
+function renderView (req, res, config, view) {
 
     // check if user has access to this view
-    if (view.access && view.access.roles) {
-        var userRole = req.session.role || "visitator";
-        if (view.access.roles.indexOf(userRole) === -1) {
+    if (config.access && config.access.roles) {
+        var userRole = (req.session.login) ? req.session.login.role || "visitator" : "visitator";
+
+        if (config.access.roles.indexOf(userRole) === -1) {
+
             // user does not have permission
-            if (view.access.fail === "redirect" && view.access.redirect) {
-                var location = 'http://' + req.headers.host + view.access.redirect;
+            if (config.access.fail === "redirect" && config.access.redirect) {
+                var location = 'http://' + req.headers.host + config.access.redirect;
                 res.writeHead(302, {"location": location});
                 res.end();
                 return;
@@ -28,7 +33,23 @@ function renderView (req, res, view) {
         }
     }
 
-    res.render(view.path);
+    // check if a custom handler exists
+    if (config.handler) {
+        // cache handler if it doesn't exist
+        if (!handler_cache[view]) {
+            try {
+                handler_cache[view] = require(join(__dirname, config.handler))[view];
+            } catch (error) {
+                log.error(error, 'Error while caching view handler: ' + config.handler);
+                return res.status(500).send('Error while caching view handler: ' + config.handler);
+            }
+        }
+
+        // call handler
+        handler_cache[view](req, res, config, view);
+    } else {
+        res.render(config.path);
+    }
 }
 
 // config routes
@@ -43,7 +64,7 @@ for (var route in config.routes) {
 
         // listen route request
         router.use(re, function (req, res) {
-            renderView(req, res, config.routes[route]);
+            renderView(req, res, config.routes[route], route);
         });
     })(route);
 }

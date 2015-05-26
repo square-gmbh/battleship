@@ -1,0 +1,44 @@
+html
+    head
+        title Battleship War
+        // Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/
+        link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css', rel='stylesheet')
+
+        // Custom CSS
+        link(href='/css/style.css', rel='stylesheet')
+
+        // Custom Fonts
+        link(href='http://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+        link(href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic', rel='stylesheet', type='text/css')
+
+        // Scripts
+        script(src="/js/jquery-1.8.3.min.js")
+        script(src="/js/ui/jquery.ui.core.js")
+        script(src="/js/ui/jquery.ui.widget.js")
+        script(src="/js/ui/jquery.ui.mouse.js")
+        script(src="/js/ui/jquery.ui.draggable.js")
+        script(src="/js/jquery-collision.min.js")
+        script(src="/js/jquery-ui-draggable-collision.min.js")
+        script(src='/js/client.js')
+    body
+        .container
+            img.logo(src="/res/logo.png")
+            .gameContainer
+                #board.gameBoard.playerOneGameBoard.pull-left
+                    .ship.ship0(vertical, data-ship="0")
+                    .ship.ship1(vertical, data-ship="1")
+                    .ship.ship2(vertical, data-ship="2")
+                    .ship.ship3(vertical, data-ship="3")
+                    .ship.ship4(vertical, data-ship="4")
+                .gameBoard.playerTwoGameBoard.pull-left
+                    .inviteFriendDialogOverlay
+                        .inviteFriendDialog
+                            h4 Give this URL to a friend to play against each other
+                            input.friendURL.form-control(type="text", onclick="this.select()")
+                            h5.text-center or
+                            .col-xs-12.btn.btn-default Play with a Stranger
+                            .clearfix
+                .clearfix
+                .infoContainer
+                    .btn.btn-success Ready!
+

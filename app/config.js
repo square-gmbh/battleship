@@ -15,13 +15,21 @@ config.routes = {
     home: {
         reg: "^/*$",
         path: "routes/views/home.jade"
+    },
+    room: {
+        reg: "^/r/[^/]+/*$",
+        path: "routes/views/room.jade"
     }
 }
 
 config.operations = {
     apiKey: "/@",
     apis: {
-        
+        createRoom: {
+            url: "/createRoom",
+            method: "get",
+            path: "game/controller.js"
+        },
     }
 }
 

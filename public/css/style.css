@@ -1,3 +1,74 @@
+.notShown {
+	display: none;
+}
+
+.tall {
+    height: 100%;
+}
+
+.wide {
+    width: 100%;
+}
+
+.mt-0  { margin-top: 0   !important; }
+.mt-xs { margin-top: 5px   !important; }
+.mt-ms { margin-top: 10px  !important; }
+.mt-s  { margin-top: 15px  !important; }
+.mt-m  { margin-top: 25px  !important; }
+.mt-l  { margin-top: 50px  !important; }
+.mt-xl { margin-top: 100px !important; }
+
+.mr-0  { margin-right: 0   !important; }
+.mr-xs { margin-right: 5px    !important; }
+.mr-s  { margin-right: 15px   !important; }
+.mr-m  { margin-right: 25px   !important; }
+.mr-l  { margin-right: 50px   !important; }
+.mr-xl { margin-right: 100px  !important; }
+
+.mb-0  { margin-bottom: 0   !important; }
+.mb-xs { margin-bottom: 5px   !important; }
+.mb-s  { margin-bottom: 15px  !important; }
+.mb-m  { margin-bottom: 25px  !important; }
+.mb-l  { margin-bottom: 50px  !important; }
+.mb-xl { margin-bottom: 100px !important; }
+
+.ml-0  { margin-left: 0   !important; }
+.ml-xs { margin-left: 5px     !important; }
+.ml-s  { margin-left: 15px    !important; }
+.ml-m  { margin-left: 25px    !important; }
+.ml-l  { margin-left: 50px    !important; }
+.ml-xl { margin-left: 100px   !important; }
+
+.pt-xs { padding-top: 5px     !important; }
+.pt-s  { padding-top: 15px    !important; }
+.pt-m  { padding-top: 25px    !important; }
+.pt-l  { padding-top: 50px    !important; }
+.pt-xl { padding-top: 100px   !important; }
+
+.pr-xs { padding-right: 5px     !important; }
+.pr-s  { padding-right: 15px    !important; }
+.pr-m  { padding-right: 25px    !important; }
+.pr-l  { padding-right: 50px    !important; }
+.pr-xl { padding-right: 100px   !important; }
+
+.pb-xs { padding-bottom: 5px     !important; }
+.pb-s  { padding-bottom: 15px    !important; }
+.pb-m  { padding-bottom: 25px    !important; }
+.pb-l  { padding-bottom: 50px    !important; }
+.pb-xl { padding-bottom: 100px   !important; }
+
+.pl-xs { padding-left: 5px     !important; }
+.pl-s  { padding-left: 15px    !important; }
+.pl-m  { padding-left: 25px    !important; }
+.pl-l  { padding-left: 50px    !important; }
+.pl-xl { padding-left: 100px   !important; }
+
+.p-xs { padding: 5px     !important; }
+.p-s  { padding: 15px    !important; }
+.p-m  { padding: 25px    !important; }
+.p-l  { padding: 50px    !important; }
+.p-xl { padding: 100px   !important; }
+
 body {
 	background-color: #222222;
 	background-image: url(http://images7.alphacoders.com/320/320065.jpg);
@@ -9,6 +80,18 @@ body {
 	height: 80px;
 	margin: 50px auto 0 auto;
 	display: block;
+}
+
+.startBtn {
+	color: #ffffff;
+	background-color: rgba(0, 0, 0, 0.6);
+	border: 2px solid #ffffff;
+	margin-top: 10px;
+}
+
+.startBtn:hover {
+	color: #cccccc;
+	background-color: rgba(0, 0, 0, 0.8);
 }
 
 .gameContainer {
@@ -87,7 +170,6 @@ body {
 	position: absolute;
 	z-index: 10000;
 	margin: 0;
-	background-color: #cccccc;
 }
 
 .ship[horizontal] {
@@ -98,84 +180,172 @@ body {
 	width: 40px;
 }
 
-.ship[horizontal].ship1 {
-	width: 80px;
-}
-
-.ship[horizontal].ship2 {
+/* HORIZONTAL SHIP DESIGN */
+.ship[horizontal].ship0 {
 	width: 120px;
 }
 
-.ship[horizontal].ship3 {
-	width: 160px;
-}
-
-.ship[horizontal].ship4 {
-	width: 200px;
-}
-
-.ship[horizontal].ship5 {
-	width: 120px;
-}
-
-/*
-.ship[horizontal].ship1 {
-	width: 80px;
-	background-image: url(/res/ship1.png);
-	background-position: center;
-	background-size: contain;
-}
-
-.ship[horizontal].ship2 {
-	width: 120px;
+.ship[horizontal].ship0:before {
+	content: '';
+	position: absolute;
 	background-image: url(/res/ship2.png);
 	background-position: center;
-	background-size: contain;
+	background-size: cover;
+	top: 0; left: 0; bottom: 0; right: 0;
 }
 
-.ship[horizontal].ship3 {
+.ship[horizontal].ship1 {
 	width: 160px;
+}
+
+.ship[horizontal].ship1:before {
+	content: '';
+	position: absolute;
 	background-image: url(/res/ship3.png);
 	background-position: center;
-	background-size: contain;
+	background-size: cover;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.ship[horizontal].ship2 {
+	width: 200px;
+}
+
+.ship[horizontal].ship2:before {
+	content: '';
+	position: absolute;
+	background-image: url(/res/ship4.png);
+	background-position: center;
+	background-size: cover;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.ship[horizontal].ship3 {
+	width: 160px;
+}
+
+.ship[horizontal].ship3:before {
+	content: '';
+	position: absolute;
+	background-image: url(/res/ship3.png);
+	background-position: center;
+	background-size: cover;
+	top: 0; left: 0; bottom: 0; right: 0;
 }
 
 .ship[horizontal].ship4 {
-	width: 200px;
-	background-image: url(/res/ship4.png);
-	background-position: center;
-	background-size: contain;
+	width: 80px;
 }
 
-.ship[horizontal].ship5 {
-	width: 120px;
+.ship[horizontal].ship4:before {
+	content: '';
+	position: absolute;
+	background-image: url(/res/ship1.png);
+	background-position: center;
+	background-size: cover;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
+
+
+/* VERTICAL SHIP DESIGN */
+.ship[vertical].ship0 {
+	height: 120px;
+}
+
+.ship[vertical].ship0:before {
+	content: '';
+	position: absolute;
 	background-image: url(/res/ship2.png);
 	background-position: center;
-	background-size: contain;
+	background-size: cover;
+	width: 120px;
+	height: 40px;
+	top: 40px; left: -40px;
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
-*/
-
-
 .ship[vertical].ship1 {
-	height: 80px;
+	height: 160px;
+}
+
+.ship[vertical].ship1:before {
+	content: '';
+	position: absolute;
+	background-image: url(/res/ship3.png);
+	background-position: center;
+	background-size: cover;
+	width: 160px;
+	height: 40px;
+	top: 60px; left: -60px;
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .ship[vertical].ship2 {
-	height: 120px;
-}
-
-.ship[vertical].ship3 {
-	height: 40px;
-	width: 120px;
-}
-
-.ship[vertical].ship4 {
 	height: 200px;
 }
 
-.ship[vertical].ship5 {
-	height: 120px;
+.ship[vertical].ship2:before {
+	content: '';
+	position: absolute;
+	background-image: url(/res/ship4.png);
+	background-position: center;
+	background-size: cover;
+	width: 200px;
+	height: 40px;
+	top: 80px; left: -80px;
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.ship[vertical].ship3 {
+	height: 160px;
+}
+
+.ship[vertical].ship3:before {
+	content: '';
+	position: absolute;
+	background-image: url(/res/ship3.png);
+	background-position: center;
+	background-size: cover;
+	width: 160px;
+	height: 40px;
+	top: 60px; left: -60px;
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.ship[vertical].ship4 {
+	height: 80px;
+}
+
+.ship[vertical].ship4:before {
+	content: '';
+	position: absolute;
+	background-image: url(/res/ship1.png);
+	background-position: center;
+	background-size: cover;
+	width: 80px;
+	height: 40px;
+	top: 20px; left: -20px;
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .inviteFriendDialogOverlay {

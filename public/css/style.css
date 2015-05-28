@@ -141,7 +141,7 @@ body {
 	box-shadow: 4px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-.gameContainer .gameBoard .tile:hover {
+.gameContainer .playerTwoGameBoard .tile:hover {
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -152,6 +152,7 @@ body {
 	background-color: #666;
 	border-radius: 5px;
 	position: relative;
+	color: #ffffff;
 }
 
 .infoContainer:before {
@@ -162,6 +163,12 @@ body {
 	border-radius: 5px;
 	z-index: -1;
 }
+
+.infoContainer .messages span {
+	font-size: 22px;
+	font-weight: 400;
+}
+
 
 /* Ship designs */
 
@@ -370,7 +377,15 @@ body {
 	background-image: url(/res/explosion.png);
 	background-position: center;
 	background-size: contain;
-	top: 240px;
-	left: 120px;
+}
+
+.splash {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	z-index: 2000000;
+	background-image: url(/res/splash.png);
+	background-position: center;
+	background-size: contain;
 }
 

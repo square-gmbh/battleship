@@ -1,14 +1,6 @@
 // socket init
 var socket = io();
 
-socket.on("err", function (error) {
-	alert(error.msg);
-});
-
-socket.on("start", function () {
-	console.log("merge");
-});
-
 var width = 10, height = 10;
 var EMPTY = 0,
 	SHIP = 1,
@@ -195,15 +187,6 @@ Ship.prototype.rotate = function () {
 	return ok;
 }
 
-var bomb = {
-	x: null,
-	y: null,
-	state: null,
-	placeBomb: function (x, y) {
-
-	}
-}
-
 function renderBoard () {
 
 	// initialize board
@@ -219,6 +202,86 @@ function renderBoard () {
 	}
 	$(".playerOneGameBoard").append('<div class="clearfix"></div>');
 }
+
+socket.on("err", function (error) {
+	if (error.code === 107) {
+		window.location = "/";
+	} else {
+		alert(error.msg);
+	}
+});
+
+// start game initialization
+socket.on("start", function () {
+	$(".waiting").hide();
+
+	$(".inviteFriendDialogOverlay").fadeOut(300);
+
+	for (var i = 0; i < width * height; ++ i) {
+
+		$temp = $("<div class='tile'></div>");
+
+		$(".playerTwoGameBoard").append($temp);
+	}
+	$(".playerTwoGameBoard").append('<div class="clearfix"></div>');
+
+	$(".playerTwoGameBoard .tile").click(function () {
+		// get bomb coordinates
+		var index = $(this).index() - 1;
+
+		var coordinates = {
+			x: index - (Math.floor(index / height) * height),
+			y: Math.floor(index / height)
+		}
+		
+		socket.emit("move", coordinates);
+	});
+});
+
+// it's "my" turn
+socket.on("doMove", function () {
+	$(".myTurn").show();
+	$(".opponentTurn").hide();
+});
+
+// it's the turn of the opponent
+socket.on("wait", function () {
+	$(".opponentTurn").show();
+	$(".myTurn").hide();
+});
+
+// update opponent grid
+socket.on("changeTurnUser", function (data) {
+	var bomb;
+	if (data.status === "hit") {
+		bomb = $("<div class='explosion'></div>").css({"top": data.y * 40, "left": data.x * 40});
+	} else {
+		bomb = $("<div class='splash'></div>").css({"top": data.y * 40, "left": data.x * 40});
+	}
+
+	$(".playerTwoGameBoard").append(bomb);
+});
+
+// update my grid
+socket.on("changeWaitingUser", function (data) {
+	var bomb;
+	if (data.status === "hit") {
+		bomb = $("<div class='explosion'></div>").css({"top": data.y * 40, "left": data.x * 40});
+	} else {
+		bomb = $("<div class='splash'></div>").css({"top": data.y * 40, "left": data.x * 40});
+	}
+
+	$(".playerOneGameBoard").append(bomb);
+});
+
+// end events
+socket.on("won", function () {
+	console.log("you won!");
+});
+
+socket.on("lost", function () {
+	console.log("you lost!");
+});
 
 $(document).ready(function () {
 
@@ -264,5 +327,11 @@ $(document).ready(function () {
 			grid: grid.grid,
 			ships: grid.ships
 		});
+
+		// disable controls
+		$(".ship").draggable("destroy").css("cursor", "default").unbind("click");
+		$(this).attr("disabled", true);
+
+		$(".waiting").show();
 	});
 });

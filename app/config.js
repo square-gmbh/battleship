@@ -33,6 +33,15 @@ config.operations = {
     }
 }
 
+config.events = {
+    ready: {
+        path: "game/controller.js"
+    },
+    disconnect: {
+        path: "game/controller.js"
+    }
+}
+
 if (PRODUCTION) {
     config.express.ip = "0.0.0.0";
 }

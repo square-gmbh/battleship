@@ -1,6 +1,14 @@
 // socket init
 var socket = io();
 
+socket.on("err", function (error) {
+	alert(error.msg);
+});
+
+socket.on("start", function () {
+	console.log("merge");
+});
+
 var width = 10, height = 10;
 var EMPTY = 0,
 	SHIP = 1,

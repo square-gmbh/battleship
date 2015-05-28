@@ -1,3 +1,6 @@
+// socket init
+var socket = io();
+
 var width = 10, height = 10;
 var EMPTY = 0,
 	SHIP = 1,
@@ -246,5 +249,12 @@ $(document).ready(function () {
 				$(this).removeAttr("horizontal").attr("vertical", "vertical");
 			}
 		}
+	});
+
+	$(".ready").click(function () {
+		socket.emit("ready", {
+			grid: grid.grid,
+			ships: grid.ships
+		});
 	});
 });

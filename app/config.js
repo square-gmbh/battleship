@@ -46,6 +46,9 @@ config.events = {
     },
     move: {
         path: "game/controller.js"
+    },
+    findMatch: {
+        path: "game/controller.js"
     }
 }
 

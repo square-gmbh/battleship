@@ -34,6 +34,9 @@ module.exports = function (core) {
     var io = core.s.io;
     s = core.s;
 
+    // init the room matching queue
+    s.matchQueue = [];
+
     // listen for connections
     io.on('connection', function (socket) {
         var host = socket.request.headers.host;
@@ -45,7 +48,10 @@ module.exports = function (core) {
             var reg = new RegExp(config.routes[route].reg);
             if (path.match(reg)) {
                 if (!s.sockets[path]) {
-                    s.sockets[path] = {};
+                    s.sockets[path] = {
+                        status: "waiting",
+                        path: path
+                    };
                 }
 
                 // check number of players
@@ -58,18 +64,25 @@ module.exports = function (core) {
                     return;
                 }
 
-                s.sockets[path].status = "waiting";
+                // room status must be 'waiting'
+                if (s.sockets[path].status === "waiting") {
 
-                // add players
-                s.sockets[path].players[socket.id] = {
-                    id: socket.id,
-                    emit: function (event, args) {
-                        s.io.to(socket.id).emit(event, args);
+                    // add players
+                    s.sockets[path].players[socket.id] = {
+                        id: socket.id,
+                        emit: function (event, args) {
+                            s.io.to(socket.id).emit(event, args);
+                        }
+                    };
+
+                    // add emit function
+                    s.sockets[path].emit = emitToRoom;
+
+                    // check if room is full
+                    if (Object.keys(s.sockets[path].players).length === 2) {
+                        s.sockets[path].emit("roomFull");
                     }
-                };
-
-                // add emit function
-                s.sockets[path].emit = emitToRoom;
+                }
             }
         }
 

@@ -23,8 +23,6 @@ function handleOperation(req, res, config, operation) {
         }
     }
 
-    console.log(join(__dirname + '/' + config.path));
-
     // cache operation file it isn't already
     if (!operations_cache[operation]) {
         try {

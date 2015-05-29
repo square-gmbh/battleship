@@ -238,6 +238,17 @@ socket.on("start", function () {
 	});
 });
 
+// found a match
+socket.on("foundMatch", function (path) {
+	// change url
+	window.location = "http://" + window.location.host + path;
+});
+
+// all players connected
+socket.on("roomFull", function () {
+	alert("all players connected");
+});
+
 // it's "my" turn
 socket.on("doMove", function () {
 	$(".myTurn").show();
@@ -333,5 +344,9 @@ $(document).ready(function () {
 		$(this).attr("disabled", true);
 
 		$(".waiting").show();
+	});
+
+	$(".findMatch").click(function () {
+		socket.emit("findMatch");
 	});
 });

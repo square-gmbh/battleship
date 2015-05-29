@@ -57,7 +57,7 @@ exports.ready = function (args, socket, s) {
 			}
 		}
 	}
-}
+};
 
 function initGame (sockets, io) {
 
@@ -177,7 +177,48 @@ exports.move = function (args, socket, s) {
 		waitingUser.emit("doMove");
 		turnUser.emit("wait");
 	}
-}
+};
+
+exports.findMatch = function (args, socket, s) {
+
+	// get room path
+	var host = socket.request.headers.host;
+	var path = socket.request.headers.referer;
+	path = path.slice(path.indexOf(host) + host.length);
+	var room = s.sockets[path];
+
+	// check if room exists
+	if (!room) {
+		return;
+	}
+
+	// conditions
+	// room must have waiting status and only one player
+	if (room.status !== "waiting" || Object.keys(room.players).length !== 1) {
+		return;
+	}
+
+	// the player id must be the same as this socket id
+	if (!room.players[socket.id]) {
+		return;
+	}
+
+	// tag this room as looking for another stranger
+	room.status = "matching";
+
+	// find another room in matching queue
+	var match = s.sockets[s.matchQueue.shift()];
+
+	// invite to room if match found
+	if (match) {
+		// get the socket id of the match user
+		var matchSocketId = Object.keys(match.players)[0];
+		room.status = "waiting";
+		match.players[matchSocketId].emit("foundMatch", path);
+	} else {
+		s.matchQueue.push(path);
+	}
+};
 
 exports.disconnect = function (args, socket, s) {
 
@@ -199,14 +240,25 @@ exports.disconnect = function (args, socket, s) {
 					msg: "Player left"
 				});
 				delete s.sockets[path];
-				return;
 
+				// check if room is in matching queue
+				var index = s.matchQueue.indexOf(path);
+				if (index !== -1) {
+					s.matchQueue.splice(index, 1);
+				}
+				return;
 			}
 
 			// delete room if no more players
 			if (!Object.keys(s.sockets[path].players).length) {
 				delete s.sockets[path];
+
+				// check if room is in matching queue
+				var index = s.matchQueue.indexOf(path);
+				if (index !== -1) {
+					s.matchQueue.splice(index, 1);
+				}
 			}
 		}
 	}
-}
+};

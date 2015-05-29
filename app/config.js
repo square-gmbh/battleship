@@ -19,6 +19,10 @@ config.routes = {
     room: {
         reg: "^/r/[^/]+/*$",
         path: "routes/views/room.jade"
+    },
+    single: {
+        reg: "/single",
+        path: "routes/views/single.jade"
     }
 }
 
@@ -29,7 +33,7 @@ config.operations = {
             url: "/createRoom",
             method: "get",
             path: "game/controller.js"
-        },
+        }
     }
 }
 

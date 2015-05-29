@@ -39,6 +39,9 @@ config.events = {
     },
     disconnect: {
         path: "game/controller.js"
+    },
+    move: {
+        path: "game/controller.js"
     }
 }
 

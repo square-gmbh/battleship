@@ -61,7 +61,12 @@ module.exports = function (core) {
                 s.sockets[path].status = "waiting";
 
                 // add players
-                s.sockets[path].players[socket.id] = {};
+                s.sockets[path].players[socket.id] = {
+                    id: socket.id,
+                    emit: function (event, args) {
+                        s.io.to(socket.id).emit(event, args);
+                    }
+                };
 
                 // add emit function
                 s.sockets[path].emit = emitToRoom;
